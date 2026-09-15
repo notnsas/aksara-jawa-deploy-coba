@@ -21,7 +21,14 @@ async function loadOrt(): Promise<typeof ort> {
 
 async function ensureRuntime(ortNs: typeof ort) {
   ortNs.env.wasm.wasmPaths = "/ort/";
-  ortNs.env.wasm.numThreads = Math.min(navigator.hardwareConcurrency || 2, 4);
+  // The threaded WASM build needs SharedArrayBuffer (page must be
+  // cross-origin isolated). On plain deployments like Vercel that's not
+  // available, so fall back to single-threaded to avoid the
+  // "Can't initialize onnxruntime (env.cc)" crash.
+  ortNs.env.wasm.numThreads =
+    typeof crossOriginIsolated === "boolean" && crossOriginIsolated
+      ? Math.min(navigator.hardwareConcurrency || 2, 4)
+      : 1;
 }
 
 /** Load (or grab from cache) an ONNX inference session for a model version. */

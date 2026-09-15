@@ -23,6 +23,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# onnx models are generated, tracked separately
-/public/models/*.onnx
