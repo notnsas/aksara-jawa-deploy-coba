@@ -79,7 +79,7 @@ export async function runInference(
     [1, 1, 64, 64]
   );
 
-  const feeds: Record<string, ortNs.Tensor> = { input: inputTensor };
+  const feeds: Record<string, ort.Tensor> = { input: inputTensor };
   const results = await session.run(feeds);
   const outputData = results.logits.data as Float32Array;
 
