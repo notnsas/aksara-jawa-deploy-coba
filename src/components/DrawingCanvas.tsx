@@ -42,7 +42,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.strokeStyle = "#111827";
-      ctx.lineWidth = 8;
+      ctx.lineWidth = 5;
     }, [getContext]);
 
     const getPos = (e: React.PointerEvent) => {
