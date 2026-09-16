@@ -20,7 +20,7 @@ export default function CharacterChart() {
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-4 py-1.5 text-xs font-medium text-zinc-600 transition hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+          className="inline-flex items-center gap-1.5 rounded-full border border-zinc-200 px-4 py-1.5 text-xs font-medium bg-white"
         >
           {expanded ? "Show fewer" : "Show all 20"}
           <svg
@@ -45,7 +45,7 @@ export default function CharacterChart() {
               key={name}
               className="group flex flex-col items-center gap-1 rounded-xl border border-zinc-100 bg-zinc-50/50 px-2 py-3 transition hover:border-amber-300 hover:bg-amber-50/50 dark:border-zinc-800 dark:bg-zinc-800/50 dark:hover:border-amber-500/40 dark:hover:bg-zinc-800"
             >
-              <span className="text-2xl leading-none">{info.aksara}</span>
+              <span className="text-2xl leading-none text-white">{info.aksara}</span>
               <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
                 {name}
               </span>

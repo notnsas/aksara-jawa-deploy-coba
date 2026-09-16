@@ -76,102 +76,105 @@ export default function Home() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-          Aksara Jawa{" "}
-          <span className="bg-gradient-to-r from-amber-500 to-amber-600 bg-clip-text text-transparent">
-            Recognizer
-          </span>
-        </h1>
-        <p className="mx-auto mt-2 max-w-xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
-          Handwrite an Aksara Jawa character and the AI will recognize it.
-          Powered by MobileNetV2 fine-tuned on the Chinese handwritten character
-          backbone — running entirely in your browser.
-        </p>
-      </div>
-
-      <div className="mb-6">
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
-            Choose model version
-          </h2>
-          <span className="text-xs text-zinc-400">
-            V3.2 is the most accurate
-          </span>
-        </div>
-        <ModelSelector
-          value={modelVersion}
-          onChange={handleModelChange}
-          loadingVersions={loadingVersions}
-        />
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900 sm:p-6">
-          <h2 className="mb-4 flex items-center gap-2 text-base font-semibold text-zinc-900 dark:text-zinc-50">
-            <svg
-              className="h-5 w-5 text-amber-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="3" />
-              <path d="M12 8v8M8 12h8" />
-            </svg>
-            Drawing pad
-          </h2>
-          <div className="flex justify-center">
-            <DrawingCanvas ref={canvasRef} onDraw={handleDraw} />
-          </div>
-          <p className="mt-3 text-center text-xs text-zinc-400">
-            Tip: draw with your mouse or finger. Inference runs automatically
-            when you finish.
+    <div className="bg-[#18120c]">
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-extrabold text-[#eee0d5] p-2">
+            Aksara Jawa{" "}
+            <span className="bg-gradient-to-r from-amber-500">
+              Recognizer
+            </span>
+          </h1>
+          <hr className="border-zinc-800" />
+          <p className="mx-auto mt-2 max-w-3xl text-sm text-[#eee0d5] sm:text-base">
+            Handwrite an Aksara Jawa character and the AI will recognize it.
+            Powered by MobileNetV2 fine-tuned on the Chinese handwritten character
+            backbone — running entirely in your browser.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900 sm:p-6">
-          <h2 className="mb-4 flex items-center gap-2 text-base font-semibold text-zinc-900 dark:text-zinc-50">
-            <svg
-              className="h-5 w-5 text-amber-600"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 12a9 9 0 1 0 9-9" />
-              <path d="M3 12h9M3 12v3M3 12v-3" />
-              <path d="M6 15v2M9 14v3" />
-            </svg>
-            Prediction
-          </h2>
-          {error ? (
-            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/50 dark:text-red-300">
-              {error}
-            </div>
-          ) : (
-            <PredictionResults
-              prediction={prediction}
-              submitting={submitting}
-              modelLabel={activeModel?.label ?? modelVersion}
-            />
-          )}
+        <div className="mb-6">
+          <div className="mb-2 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-[#eee0d5]">
+              Choose model version
+            </h2>
+            <span className="text-xs text-[#eee0d5]">
+              V3.2 is the most accurate
+            </span>
+          </div>
+          <ModelSelector
+            value={modelVersion}
+            onChange={handleModelChange}
+            loadingVersions={loadingVersions}
+          />
         </div>
-      </div>
 
-      <div className="mt-6">
-        <CharacterChart />
-      </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900 sm:p-6">
+            <h2 className="mb-4 flex items-center gap-2 text-base font-semibold text-zinc-900 dark:text-zinc-50">
+              <svg
+                className="h-5 w-5 text-amber-600"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="3" />
+                <path d="M12 8v8M8 12h8" />
+              </svg>
+              Drawing pad
+            </h2>
+            <div className="flex justify-center">
+              <DrawingCanvas ref={canvasRef} onDraw={handleDraw} />
+            </div>
+            <p className="mt-3 text-center text-xs text-zinc-400">
+              Tip: draw with your mouse or finger. Inference runs automatically
+              when you finish.
+            </p>
+          </div>
 
-      <footer className="mt-10 border-t border-zinc-200 pt-6 text-center text-xs text-zinc-400 dark:border-zinc-800">
-        Runs 100% client-side with ONNX Runtime Web · Models: MobileNetV2 (HCCR
-        backbone) fine-tuned on 20 Aksara Jawa characters · V1 → V3.2
-      </footer>
-    </main>
+          <div className="rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-700 dark:bg-zinc-900 sm:p-6">
+            <h2 className="mb-4 flex items-center gap-2 text-base font-semibold text-zinc-900 dark:text-zinc-50">
+              <svg
+                className="h-5 w-5 text-amber-600"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 12a9 9 0 1 0 9-9" />
+                <path d="M3 12h9M3 12v3M3 12v-3" />
+                <path d="M6 15v2M9 14v3" />
+              </svg>
+              Prediction
+            </h2>
+            {error ? (
+              <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/50 dark:text-red-300">
+                {error}
+              </div>
+            ) : (
+              <PredictionResults
+                prediction={prediction}
+                submitting={submitting}
+                modelLabel={activeModel?.label ?? modelVersion}
+              />
+            )}
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <CharacterChart />
+        </div>
+
+        <footer className="mt-10 border-t border-zinc-800 pt-6 text-center text-xs text-[#eee0d5]">
+          Runs 100% client-side with ONNX Runtime Web · Models: MobileNetV2 (HCCR
+          backbone) fine-tuned on 20 Aksara Jawa characters · V1 → V3.2
+        </footer>
+      </main>
+    </div>
   );
 }

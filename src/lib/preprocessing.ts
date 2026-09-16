@@ -60,55 +60,32 @@ function resizeBilinear(
   return dst;
 }
 
+// @/lib/preprocessing.ts
+// const SIZE = 64;
+
 export function preprocessImage(imageData: ImageData): Float32Array {
-  const { width: w, height: h } = imageData;
-  const gray = toGray(imageData.data, w, h);
+  const { width: w, height: h, data } = imageData;
+  const canvas = new Float32Array(SIZE * SIZE);
 
-  let minX = Infinity, minY = Infinity;
-  let maxX = -Infinity, maxY = -Infinity;
-  let hasForeground = false;
+  const scaleX = w / SIZE;
+  const scaleY = h / SIZE;
 
-  for (let y = 0; y < h; y++) {
-    for (let x = 0; x < w; x++) {
-      if (gray[y * w + x] < FOREGROUND_THRESHOLD) {
-        hasForeground = true;
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-        if (y < minY) minY = y;
-        if (y > maxY) maxY = y;
-      }
-    }
-  }
+  for (let y = 0; y < SIZE; y++) {
+    const srcY = Math.min(Math.floor((y + 0.5) * scaleY), h - 1);
+    for (let x = 0; x < SIZE; x++) {
+      const srcX = Math.min(Math.floor((x + 0.5) * scaleX), w - 1);
+      const o = (srcY * w + srcX) * 4;
 
-  // Pre-fill with +1.0 (white background in [-1, 1] range)
-  const canvas = new Float32Array(SIZE * SIZE).fill(1.0);
-  if (!hasForeground) {
-    return canvas;
-  }
+      const alpha = data[o + 3] / 255;
+      const r = data[o] * alpha + 255 * (1 - alpha);
+      const g = data[o + 1] * alpha + 255 * (1 - alpha);
+      const b = data[o + 2] * alpha + 255 * (1 - alpha);
 
-  const boxW = maxX - minX + 1;
-  const boxH = maxY - minY + 1;
-
-  const scale = TARGET_LONG_EDGE / Math.max(boxW, boxH);
-  const newW = Math.max(1, Math.round(boxW * scale));
-  const newH = Math.max(1, Math.round(boxH * scale));
-
-  const cropped = new Uint8Array(boxW * boxH);
-  for (let y = 0; y < boxH; y++) {
-    for (let x = 0; x < boxW; x++) {
-      cropped[y * boxW + x] = gray[(minY + y) * w + (minX + x)];
-    }
-  }
-
-  const resized = resizeBilinear(cropped, boxW, boxH, newW, newH);
-
-  const offX = Math.floor((SIZE - newW) / 2);
-  const offY = Math.floor((SIZE - newH) / 2);
-
-  for (let y = 0; y < newH; y++) {
-    for (let x = 0; x < newW; x++) {
-      const v = resized[y * newW + x] / 127.5 - 1.0;
-      canvas[(offY + y) * SIZE + (offX + x)] = v;
+      // Rec.709 Luminance
+      const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+      
+      // Normalize [0, 255] to [-1.0, 1.0] (matching PyTorch Normalize(0.5, 0.5))
+      canvas[y * SIZE + x] = gray / 127.5 - 1.0;
     }
   }
 
@@ -116,7 +93,5 @@ export function preprocessImage(imageData: ImageData): Float32Array {
 }
 
 export function toModelInput(preprocessed: Float32Array): Float32Array {
-  const out = new Float32Array(1 * 1 * 64 * 64);
-  out.set(preprocessed);
-  return out;
+  return preprocessed;
 }

@@ -19,9 +19,11 @@ export const CLASS_NAMES = [
   "THA",
   "WA",
   "YA",
+  "unknown",
 ] as const;
 
 export type AksaraClass = (typeof CLASS_NAMES)[number];
+
 
 export interface ModelVersion {
   id: string;
@@ -67,13 +69,18 @@ export const MODEL_VERSIONS: ModelVersion[] = [
     description: "Best model (recommended)",
     recommended: true,
   },
+  {
+    id: "v4", // Matches the exported ONNX file name
+    label: "V4",
+    description: "21 Classes (Includes Unknown), Ha-Na-Ca-Ra-Ka Order",
+    recommended: true,
+  },
 ];
 
-export const DEFAULT_MODEL = "v3.2";
+export const DEFAULT_MODEL = "v4";
 
 export const MODEL_FILE = (version: string) => `/models/${version}.onnx`;
 
-/** Human-readable Javanese script names and pronunciations */
 export const CHAR_INFO: Record<AksaraClass, { name: string; aksara: string }> = {
   BA: { name: "Ba", aksara: "ꦧ" },
   CA: { name: "Ca", aksara: "ꦕ" },
@@ -95,4 +102,5 @@ export const CHAR_INFO: Record<AksaraClass, { name: string; aksara: string }> = 
   THA: { name: "Tha", aksara: "ꦛ" },
   WA: { name: "Wa", aksara: "ꦮ" },
   YA: { name: "Ya", aksara: "ꦪ" },
+  unknown: { name: "Unknown", aksara: "?" },
 };

@@ -19,7 +19,7 @@ interface DrawingCanvasProps {
   onDraw?: () => void;
 }
 
-const CANVAS_PIXELS = 600;
+const CANVAS_PIXELS = 800;
 
 const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
   function DrawingCanvas({ onDraw }, ref) {

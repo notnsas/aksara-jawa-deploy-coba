@@ -23,7 +23,7 @@ function ConfidenceBar({
   return (
     <div className="flex items-center gap-3 py-1.5">
       <div className="flex w-24 shrink-0 items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-base shadow-sm ring-1 ring-black/5 dark:bg-zinc-800 dark:ring-white/10">
+        <div className="flex h-8 w-8  text-white items-center justify-center rounded-lg bg-white text-base shadow-sm ring-1 ring-black/5 dark:bg-zinc-800 dark:ring-white/10">
           {info.aksara}
         </div>
         <div className="min-w-0">
@@ -87,12 +87,12 @@ export default function PredictionResults({
               Predicted character
             </p>
             <div className="mt-1 flex items-center gap-3">
-              <span className="text-4xl leading-none">{info.aksara}</span>
+              <span className="text-4xl text-white leading-none">{info.aksara}</span>
               <div>
-                <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+                <p className="text-2xl text-white font-bold dark:text-zinc-50">
                   {prediction.className}
                 </p>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text-sm text-whitedark:text-zinc-400">
                   {info.name}
                 </p>
               </div>

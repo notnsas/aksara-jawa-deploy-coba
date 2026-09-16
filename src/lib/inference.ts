@@ -96,7 +96,8 @@ export async function runInference(
   const exp = logits.map((v) => Math.exp(v - maxLogit));
   const sumExp = exp.reduce((a, b) => a + b, 0);
   const probs = exp.map((v) => v / sumExp);
-
+  console.log('exp', exp);
+  console.log('probs', probs);
   const ranked = probs
     .map((p, idx) => ({ className: CLASS_NAMES[idx], probability: p }))
     .sort((a, b) => b.probability - a.probability);
