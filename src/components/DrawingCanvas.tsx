@@ -19,7 +19,7 @@ interface DrawingCanvasProps {
   onDraw?: () => void;
 }
 
-const CANVAS_PIXELS = 800;
+const CANVAS_PIXELS = 256;
 
 const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
   function DrawingCanvas({ onDraw }, ref) {
@@ -42,7 +42,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.strokeStyle = "#111827";
-      ctx.lineWidth = 14;
+      ctx.lineWidth = 8;
     }, [getContext]);
 
     const getPos = (e: React.PointerEvent) => {

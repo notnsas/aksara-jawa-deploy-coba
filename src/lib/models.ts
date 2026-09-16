@@ -67,17 +67,23 @@ export const MODEL_VERSIONS: ModelVersion[] = [
     id: "v3.2",
     label: "V3.2",
     description: "Best model (recommended)",
-    recommended: true,
+    recommended: false,
   },
   {
     id: "v4", // Matches the exported ONNX file name
     label: "V4",
     description: "21 Classes (Includes Unknown), Ha-Na-Ca-Ra-Ka Order",
+    recommended: false,
+  },
+  {
+    id: "v4.1", // Matches the exported ONNX file name
+    label: "V4.1",
+    description: "21 Classes (Includes Unknown), Ha-Na-Ca-Ra-Ka Order",
     recommended: true,
   },
 ];
 
-export const DEFAULT_MODEL = "v4";
+export const DEFAULT_MODEL = "v4.1";
 
 export const MODEL_FILE = (version: string) => `/models/${version}.onnx`;
 
