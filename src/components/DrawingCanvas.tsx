@@ -133,7 +133,7 @@ const DrawingCanvas = forwardRef<DrawingCanvasHandle, DrawingCanvasProps>(
             onPointerMove={moveDraw}
             onPointerUp={endDraw}
             onPointerLeave={endDraw}
-            className="h-[340px] w-[340px] cursor-crosshair touch-none rounded-xl bg-white sm:h-[400px] sm:w-[400px]"
+            className="h-[340px] w-[320px] cursor-crosshair touch-none rounded-xl bg-white sm:h-[400px] sm:w-[400px]"
           />
           {isEmptyCanvas && (
             <div className="pointer-events-none absolute inset-2 flex items-center justify-center rounded-xl">
