@@ -1,7 +1,7 @@
 
 /** Bilinear resize matching PIL pixel-center alignment. */
 const SIZE = 64;
-const TARGET_LONG_EDGE = 56;
+const TARGET_LONG_EDGE = 46;
 const FOREGROUND_THRESHOLD = 220;
 
 /** Extract grayscale value for a pixel via Rec.709 luminance with alpha composite over white. */
